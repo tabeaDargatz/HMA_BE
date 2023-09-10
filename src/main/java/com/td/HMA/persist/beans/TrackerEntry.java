@@ -29,25 +29,29 @@ public class TrackerEntry {
     private String name;
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "timeOfDay", column = @Column(name = "TIME_OF_DAY")),
-            @AttributeOverride(name = "name", column = @Column(name = "NAME")),
-            @AttributeOverride(name = "calories", column = @Column(name = "CALORIES"))
+            @AttributeOverride(name = "timeOfDay", column = @Column(name = "MEALTIME_TIME_OF_DAY")),
+            @AttributeOverride(name = "name", column = @Column(name = "MEALTIME_NAME")),
+            @AttributeOverride(name = "calories", column = @Column(name = "MEALTIME_CALORIES"))
     })
     private MealTime mealTime;
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "name", column = @Column(name = "NAME")),
-            @AttributeOverride(name = "duration", column = @Column(name = "DURATION")),
-            @AttributeOverride(name = "comment", column = @Column(name = "COMMENT"))
+            @AttributeOverride(name = "name", column = @Column(name = "ACTIVITY_DURATION_NAME")),
+            @AttributeOverride(name = "duration", column = @Column(name = "ACTIVITY_DURATION")),
+            @AttributeOverride(name = "comment", column = @Column(name = "ACTIVITY_DURATION_COMMENT"))
     })
     private ActivityDuration activityDuration;
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "type", column = @Column(name = "TYPE")),
-            @AttributeOverride(name = "prefix", column = @Column(name = "PREFIX")),
-            @AttributeOverride(name = "recordedAt", column = @Column(name = "RECORDED_AT"))
+            @AttributeOverride(name = "type", column = @Column(name = "MOOD_TYPE")),
+            @AttributeOverride(name = "prefix", column = @Column(name = "MOOD_PREFIX")),
+            @AttributeOverride(name = "recordedAt", column = @Column(name = "MOOD_RECORDED_AT"))
     })
     private Mood mood;
     @Column(name = "CREATED_ON")
     private OffsetDateTime createdOn;
+    @Column(name = "VERSION", nullable = false)
+    private Integer version;
+    @Column(name = "UPDATED_ON")
+    private OffsetDateTime updatedOn;
 }

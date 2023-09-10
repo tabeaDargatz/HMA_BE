@@ -21,7 +21,9 @@ public class ChecklistItem {
     @Column(name = "CHECKED")
     private boolean checked;
     @ManyToOne
-    @JoinColumn(name = "TRACKER_ENTRY_ID")
+    @JoinColumn(name = "TRACKER_ENTRY_ID",nullable = false)
     private TrackerEntry trackerEntry;
+    @Column(name = "VERSION", nullable = false)
+    private Integer version;
 
 }

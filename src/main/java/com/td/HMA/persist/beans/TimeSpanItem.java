@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 
 @Entity
@@ -25,5 +26,6 @@ public class TimeSpanItem {
     @ManyToOne
     @JoinColumn(name = "TRACKER_ENTRY_ID")
     private TrackerEntry trackerEntry;
-
+    @Column(name = "VERSION", nullable = false)
+    private Integer version;
 }

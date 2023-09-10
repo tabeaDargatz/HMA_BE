@@ -14,8 +14,8 @@ public class User {
     @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer id;
-    @Column(name = "LOGIN_NAME", nullable = false)
-    private String loginName;
+    @Column(name = "USERNAME", nullable = false)
+    private String username;
     @Column(name = "PASSWORD", nullable = false)
     private String password;
     @Column(name = "EMAIL", nullable = false)
