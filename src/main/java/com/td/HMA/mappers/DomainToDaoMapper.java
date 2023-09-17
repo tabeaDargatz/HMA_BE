@@ -1,6 +1,8 @@
 package com.td.HMA.mappers;
 
 import com.td.HMA.DAOs.TrackerEntry;
+import com.td.HMA.DAOs.User;
+import com.td.HMA.DLOs.CreateUser;
 import com.td.HMA.DLOs.Tracker;
 import org.mapstruct.Mapper;
 
@@ -11,4 +13,6 @@ public interface DomainToDaoMapper {
     TrackerEntry mapToDao(com.td.HMA.DLOs.TrackerEntry trackerEntry);
 
     com.td.HMA.DAOs.Tracker mapToDao(Tracker tracker);
+
+    User mapToDao(CreateUser createUser);
 }

@@ -1,14 +1,14 @@
 package com.td.HMA.controllers;
 
+import com.td.HMA.DTOs.user.CreateUser;
 import com.td.HMA.DTOs.user.UserDetails;
+import com.td.HMA.mappers.DTOToDomainMapper;
 import com.td.HMA.mappers.DomainToDTOMapper;
 import com.td.HMA.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,11 +19,20 @@ public class UserController {
     private UserService userService;
     @Autowired
     private DomainToDTOMapper domainToDTOMapper;
+    @Autowired
+    private DTOToDomainMapper dtoToDomainMapper;
+    @Autowired
+    private DelegatingPasswordEncoder delegatingPasswordEncoder;
 
-    //TODO: figure out pw encryption
     @GetMapping("/users/{id}")
     public UserDetails getUser(@PathVariable Integer id) {
-        return domainToDTOMapper.mapToDTO(userService.getUser(id));
+        return domainToDTOMapper.mapToDTO(userService.getUserById(id));
+    }
+
+    @PostMapping("/users")
+    public UserDetails createUser(@RequestBody CreateUser createUser) {
+        createUser.setPassword(delegatingPasswordEncoder.encode(createUser.getPassword()));
+        return domainToDTOMapper.mapToDTO(userService.createUser(domainToDTOMapper.mapToDTO(createUser)));
     }
 
 }

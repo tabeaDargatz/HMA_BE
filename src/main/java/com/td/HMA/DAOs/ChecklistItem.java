@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TRACKER_ENTRIES")
+@Table(name = "CHECKLIST_ITEMS")
 public class ChecklistItem {
 
     @Id

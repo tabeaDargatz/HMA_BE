@@ -1,4 +1,4 @@
-package com.td.HMA.DTOs.user;
+package com.td.HMA.DLOs;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserDetails {
-    private Integer id;
+public class CreateUser {
+
     private String email;
+    private String password;
     private String username;
 }

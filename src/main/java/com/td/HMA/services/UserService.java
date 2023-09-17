@@ -1,9 +1,8 @@
 package com.td.HMA.services;
 
+import com.td.HMA.DLOs.CreateUser;
 import com.td.HMA.DLOs.User;
 import com.td.HMA.DatabaseAccess.UserDataAccess;
-import com.td.HMA.mappers.DaoToDomainMapper;
-import com.td.HMA.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,11 @@ public class UserService {
     private UserDataAccess userDataAccess;
 
     //TODO: add actual exceptions
-    public User getUser(Integer id) {
+    public User getUserById(Integer id) {
         return userDataAccess.findById(id).orElseThrow(() -> new NullPointerException("AAA"));
+    }
+
+    public User createUser(CreateUser createUser) {
+        return userDataAccess.createUser(createUser);
     }
 }

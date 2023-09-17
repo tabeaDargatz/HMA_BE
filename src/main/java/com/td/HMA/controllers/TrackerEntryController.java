@@ -25,7 +25,7 @@ public class TrackerEntryController {
     @Autowired
     private DTOToDomainMapper dtoToDomainMapper;
 
-    //replace with actual list that has filtering / pagination
+    //TODO: replace with actual list that has filtering / pagination
     @GetMapping("/trackers/{id}/trackerEntries")
     public List<TrackerEntryListItem> getTrackerEntries(@PathVariable Integer id) {
         return domainToDTOMapper.mapToDTO(trackerEntryService.getTrackerEntriesByTrackerId(id));
