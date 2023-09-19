@@ -1,8 +1,5 @@
 package com.td.HMA.DLOs;
 
-import com.td.HMA.DAOs.embeddable.ActivityDuration;
-import com.td.HMA.DAOs.embeddable.MealTime;
-import com.td.HMA.DAOs.embeddable.Mood;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,5 +14,6 @@ public class UpdateTrackerEntry {
     private Double weight;
     private ActivityDuration activityDuration;
     private Mood mood;
+  private String customName;
     private Integer version;
 }

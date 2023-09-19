@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CreateTracker {
-    private Integer version;
+
     private TrackerType type;
     private String customName;
     private String comment;

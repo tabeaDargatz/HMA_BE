@@ -1,15 +1,15 @@
 package com.td.HMA.services;
 
-import com.td.HMA.DLOs.CreateTracker;
 import com.td.HMA.DLOs.Tracker;
 import com.td.HMA.DLOs.UpdateTracker;
+import com.td.HMA.DLOs.User;
 import com.td.HMA.DatabaseAccess.TrackerDataAccess;
 import com.td.HMA.mappers.DaoToDomainMapper;
+import com.td.HMA.utils.SecurityUtils;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -25,15 +25,14 @@ public class TrackerService {
         return trackerDataAccess.findById(id).orElseThrow(()-> new NullPointerException("AA"));
     }
 
-    //TODO: how to get user?
     public Tracker createTracker(Tracker tracker) {
 
-        Integer userId = 1;
-        if(trackerDataAccess.existsByUserIdAndTrackerType(userId, tracker.getType())){
+    User user = SecurityUtils.getUser().orElseThrow(() -> new NullPointerException("AAA"));
+    if (trackerDataAccess.existsByUserIdAndTrackerType(user.getId(), tracker.getType())) {
             throw new NullPointerException("");
         }
 
-        return trackerDataAccess.save(tracker);
+    return trackerDataAccess.save(tracker, user.getId());
     }
 
     public Tracker updateTracker(Integer id, UpdateTracker updateTracker) {
@@ -45,7 +44,7 @@ public class TrackerService {
 
         tracker.setComment(updateTracker.getComment());
         tracker.setCustomName(updateTracker.getCustomName());
-
-        return trackerDataAccess.save(tracker);
+    User user = SecurityUtils.getUser().orElseThrow(() -> new NullPointerException("AAA"));
+    return trackerDataAccess.save(tracker, user.getId());
     }
 }

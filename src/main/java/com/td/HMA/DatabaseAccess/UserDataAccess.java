@@ -5,11 +5,10 @@ import com.td.HMA.DLOs.User;
 import com.td.HMA.mappers.DaoToDomainMapper;
 import com.td.HMA.mappers.DomainToDaoMapper;
 import com.td.HMA.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.Collections;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserDataAccess {
@@ -36,4 +35,8 @@ public class UserDataAccess {
     public User createUser(CreateUser createUser) {
         return daoToDomainMapper.mapToDomain(userRepository.saveAndFlush(domainToDaoMapper.mapToDao(createUser)));
     }
+
+  public Optional<User> findByEmail(String email) {
+    return userRepository.findByEmail(email).map(daoToDomainMapper::mapToDomain);
+  }
 }

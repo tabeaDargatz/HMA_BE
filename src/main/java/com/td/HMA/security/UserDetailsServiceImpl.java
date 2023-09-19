@@ -1,4 +1,4 @@
-package com.td.HMA.config;
+package com.td.HMA.security;
 
 import com.td.HMA.DatabaseAccess.UserDataAccess;
 import lombok.RequiredArgsConstructor;

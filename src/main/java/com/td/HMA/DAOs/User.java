@@ -22,4 +22,8 @@ public class User {
     private String password;
     @Column(name = "EMAIL", nullable = false)
     private String email;
+
+  @Column(name = "VERSION", nullable = false)
+  @Version
+  private Integer version;
 }

@@ -2,12 +2,11 @@ package com.td.HMA.DAOs;
 
 import com.td.HMA.enums.TrackerType;
 import jakarta.persistence.*;
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.OffsetDateTime;
 
 @Entity
 @Getter
@@ -21,8 +20,11 @@ public class Tracker {
     @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer id;
-    @Column(name = "VERSION", nullable = false)
-    private Integer version;
+
+  @Column(name = "VERSION", nullable = false)
+  @Version
+  private Integer version;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
     private TrackerType type;

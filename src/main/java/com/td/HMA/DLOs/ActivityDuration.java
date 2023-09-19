@@ -7,10 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
-
-    private Integer id;
-    private String username;
-    private String email;
-  private Integer version;
+public class ActivityDuration {
+  private String name;
+  private Long duration;
+  private String comment;
 }

@@ -1,12 +1,11 @@
 package com.td.HMA.DAOs;
 
 import jakarta.persistence.*;
+import java.time.OffsetTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.OffsetTime;
 
 @Entity
 @Getter
@@ -29,6 +28,8 @@ public class TimeSpanItem {
     @ManyToOne
     @JoinColumn(name = "TRACKER_ENTRY_ID")
     private TrackerEntry trackerEntry;
-    @Column(name = "VERSION", nullable = false)
-    private Integer version;
+
+  @Column(name = "VERSION", nullable = false)
+  @Version
+  private Integer version;
 }

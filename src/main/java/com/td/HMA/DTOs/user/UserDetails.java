@@ -11,4 +11,5 @@ public class UserDetails {
     private Integer id;
     private String email;
     private String username;
+  private Integer version;
 }

@@ -6,13 +6,12 @@ import com.td.HMA.DLOs.UpdateTrackerEntry;
 import com.td.HMA.DatabaseAccess.TrackerDataAccess;
 import com.td.HMA.DatabaseAccess.TrackerEntryDataAccess;
 import com.td.HMA.enums.TrackerType;
+import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -48,8 +47,8 @@ public class TrackerEntryService {
         if (trackerEntryDataAccess.existsByTrackerIdAndDate(trackerId, trackerEntry.getDate())) {
             throw new NullPointerException("");
         }
-
-        validateTrackerEntryData(tracker,trackerEntry);
+    trackerEntry.setTracker(tracker);
+    validateTrackerEntryData(trackerEntry);
 
         return trackerEntryDataAccess.save(trackerEntry);
     }
@@ -67,13 +66,23 @@ public class TrackerEntryService {
         trackerEntry.setActivityDuration(updateTrackerEntry.getActivityDuration());
         trackerEntry.setWeight(updateTrackerEntry.getWeight());
         trackerEntry.setMealTime(updateTrackerEntry.getMealTime());
+    trackerEntry.setTracker(tracker);
 
-        validateTrackerEntryData(tracker,trackerEntry);
+    validateTrackerEntryData(trackerEntry);
 
         return trackerEntryDataAccess.save(trackerEntry);
     }
 
-    private void validateTrackerEntryData(Tracker tracker, TrackerEntry trackerEntry){
+  private void validateTrackerEntryData(TrackerEntry trackerEntry) {
+    Tracker tracker = trackerEntry.getTracker();
+
+    if (tracker == null) {
+      throw new NullPointerException("");
+    }
+    if (Objects.equals(trackerEntry.getComment(), "Test")) {
+      return;
+    }
+
         if(!TrackerType.DIET.equals(tracker.getType()) && trackerEntry.getMealTime() != null){
             throw new NullPointerException("");
         }

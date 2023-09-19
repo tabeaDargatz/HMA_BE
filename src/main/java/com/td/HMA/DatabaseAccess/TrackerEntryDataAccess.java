@@ -2,16 +2,13 @@ package com.td.HMA.DatabaseAccess;
 
 import com.td.HMA.DLOs.TrackerEntry;
 import com.td.HMA.mappers.DaoToDomainMapper;
-import com.td.HMA.mappers.DomainToDTOMapper;
 import com.td.HMA.mappers.DomainToDaoMapper;
 import com.td.HMA.repositories.TrackerEntryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TrackerEntryDataAccess {
@@ -25,7 +22,15 @@ public class TrackerEntryDataAccess {
 
 
     public TrackerEntry save(TrackerEntry trackerEntry) {
-        return daoToDomainMapper.mapToDomain(trackerEntryRepository.save(domainToDaoMapper.mapToDao(trackerEntry)));
+    if (trackerEntry.getId() == null) {
+      return daoToDomainMapper.mapToDomain(
+          trackerEntryRepository.save(domainToDaoMapper.mapToCreateDao(trackerEntry)));
+    } else {
+      com.td.HMA.DAOs.TrackerEntry trackerEntryDao =
+          trackerEntryRepository.findById(trackerEntry.getId()).orElseThrow();
+      domainToDaoMapper.mapToUpdateDao(trackerEntryDao, trackerEntry);
+      return daoToDomainMapper.mapToDomain(trackerEntryRepository.save(trackerEntryDao));
+    }
     }
 
     public Optional<TrackerEntry> findById(Integer entryId) {

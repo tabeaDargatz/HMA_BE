@@ -1,13 +1,9 @@
 package com.td.HMA.DTOs.trackerEntry;
 
-import com.td.HMA.DAOs.embeddable.ActivityDuration;
-import com.td.HMA.DAOs.embeddable.MealTime;
-import com.td.HMA.DAOs.embeddable.Mood;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,7 +12,9 @@ public class CreateTrackerEntry {
 
     private String comment;
     private MealTime mealTime;
+  private String customName;
     private ActivityDuration activityDuration;
     private Mood mood;
+  private Double weight;
     private LocalDate date;
 }

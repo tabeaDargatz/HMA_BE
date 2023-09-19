@@ -1,6 +1,5 @@
 package com.td.HMA.DLOs;
 
-import com.td.HMA.DAOs.User;
 import com.td.HMA.enums.TrackerType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

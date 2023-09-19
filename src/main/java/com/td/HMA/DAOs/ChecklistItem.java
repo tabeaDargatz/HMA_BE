@@ -25,7 +25,8 @@ public class ChecklistItem {
     @ManyToOne
     @JoinColumn(name = "TRACKER_ENTRY_ID",nullable = false)
     private TrackerEntry trackerEntry;
-    @Column(name = "VERSION", nullable = false)
-    private Integer version;
 
+  @Column(name = "VERSION", nullable = false)
+  @Version
+  private Integer version;
 }

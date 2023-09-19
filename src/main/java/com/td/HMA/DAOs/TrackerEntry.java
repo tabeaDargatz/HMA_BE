@@ -4,13 +4,12 @@ import com.td.HMA.DAOs.embeddable.ActivityDuration;
 import com.td.HMA.DAOs.embeddable.MealTime;
 import com.td.HMA.DAOs.embeddable.Mood;
 import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 @Entity
 @Getter
@@ -28,6 +27,10 @@ public class TrackerEntry {
     @ManyToOne
     @JoinColumn(name = "TRACKER_ID")
     private Tracker tracker;
+
+  @Column(name = "CUSTOM_NAME", length = 150)
+  private String customName;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "timeOfDay", column = @Column(name = "MEALTIME_TIME_OF_DAY")),
@@ -49,12 +52,17 @@ public class TrackerEntry {
             @AttributeOverride(name = "recordedAt", column = @Column(name = "MOOD_RECORDED_AT"))
     })
     private Mood mood;
-    @Column(name = "WEIGHT", nullable = false)
-    private Double weight;
+
+  @Column(name = "WEIGHT")
+  private Double weight;
+
     @Column(name = "CREATED_ON", nullable = false)
     private OffsetDateTime createdOn;
-    @Column(name = "VERSION", nullable = false)
-    private Integer version;
+
+  @Column(name = "VERSION", nullable = false)
+  @Version
+  private Integer version;
+
     @Column(name = "DATE", nullable = false)
     private LocalDate date;
     @Column(name = "UPDATED_ON", nullable = false)
