@@ -1,6 +1,7 @@
 package com.td.HMA.DLOs;
 
 import com.td.HMA.enums.TrackerType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Tracker {
 
     private Integer id;

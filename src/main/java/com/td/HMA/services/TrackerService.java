@@ -4,6 +4,7 @@ import com.td.HMA.DLOs.Tracker;
 import com.td.HMA.DLOs.UpdateTracker;
 import com.td.HMA.DLOs.User;
 import com.td.HMA.DatabaseAccess.TrackerDataAccess;
+import com.td.HMA.DatabaseAccess.UserDataAccess;
 import com.td.HMA.mappers.DaoToDomainMapper;
 import com.td.HMA.utils.SecurityUtils;
 import java.util.Objects;
@@ -15,36 +16,44 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TrackerService {
 
-    @Autowired
-    private TrackerDataAccess trackerDataAccess;
-    @Autowired
-    private DaoToDomainMapper daoToDomainMapper;
+  @Autowired private TrackerDataAccess trackerDataAccess;
+  @Autowired private DaoToDomainMapper daoToDomainMapper;
+  @Autowired private UserDataAccess userDataAccess;
 
+  public Tracker getTracker(Integer id) {
+    return trackerDataAccess.findById(id).orElseThrow(() -> new NullPointerException("AA"));
+  }
 
-    public Tracker getTracker(Integer id) {
-        return trackerDataAccess.findById(id).orElseThrow(()-> new NullPointerException("AA"));
-    }
+  public Tracker createTracker(Tracker tracker) {
 
-    public Tracker createTracker(Tracker tracker) {
-
-    User user = SecurityUtils.getUser().orElseThrow(() -> new NullPointerException("AAA"));
+    org.springframework.security.core.userdetails.User secrityUser =
+        SecurityUtils.getUser().orElseThrow(() -> new NullPointerException("AAA"));
+    User user =
+        userDataAccess
+            .findByEmail(secrityUser.getUsername())
+            .orElseThrow(() -> new NullPointerException("AAAA"));
     if (trackerDataAccess.existsByUserIdAndTrackerType(user.getId(), tracker.getType())) {
-            throw new NullPointerException("");
-        }
-
-    return trackerDataAccess.save(tracker, user.getId());
+      throw new NullPointerException("");
     }
 
-    public Tracker updateTracker(Integer id, UpdateTracker updateTracker) {
-
-        Tracker tracker = getTracker(id);
-        if(!Objects.equals(tracker.getVersion(), updateTracker.getVersion())){
-            throw new NullPointerException("");
-        }
-
-        tracker.setComment(updateTracker.getComment());
-        tracker.setCustomName(updateTracker.getCustomName());
-    User user = SecurityUtils.getUser().orElseThrow(() -> new NullPointerException("AAA"));
     return trackerDataAccess.save(tracker, user.getId());
+  }
+
+  public Tracker updateTracker(Integer id, UpdateTracker updateTracker) {
+
+    Tracker tracker = getTracker(id);
+    if (!Objects.equals(tracker.getVersion(), updateTracker.getVersion())) {
+      throw new NullPointerException("");
     }
+
+    tracker.setComment(updateTracker.getComment());
+    tracker.setCustomName(updateTracker.getCustomName());
+    org.springframework.security.core.userdetails.User secrityUser =
+        SecurityUtils.getUser().orElseThrow(() -> new NullPointerException("AAA"));
+    User user =
+        userDataAccess
+            .findByEmail(secrityUser.getUsername())
+            .orElseThrow(() -> new NullPointerException("AAAA"));
+    return trackerDataAccess.save(tracker, user.getId());
+  }
 }

@@ -11,15 +11,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TrackerEntry {
 
-    private Integer id;
-    private String comment;
-    private Tracker tracker;
-    private MealTime mealTime;
-    private Double weight;
-    private ActivityDuration activityDuration;
-    private Mood mood;
+  private Integer id;
+  private String comment;
+  private Tracker tracker;
+  private MealTime mealTime;
+  private Double weight;
+  private ActivityDuration activityDuration;
+  private Mood mood;
   private String customName;
   private OffsetDateTime createdOn;
-    private LocalDate date;
-    private Integer version;
+  private LocalDate date;
+  private Integer version;
 }
