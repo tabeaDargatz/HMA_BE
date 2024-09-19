@@ -16,6 +16,6 @@ public class TrackerDetails {
     private TrackerType type;
     private String customName;
     private String comment;
-  private Integer createdById;
+    private Integer createdById;
     private int streak;
 }

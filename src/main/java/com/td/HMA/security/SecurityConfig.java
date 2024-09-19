@@ -44,7 +44,7 @@ public class SecurityConfig {
 
         DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(idForEncode, encoders);
 
-        passwordEncoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
+        passwordEncoder.setDefaultPasswordEncoderForMatches(encoders.get(idForEncode));
 
         return passwordEncoder;
     }
@@ -56,6 +56,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) ->
                 requests.requestMatchers(mvc.pattern(HttpMethod.POST, "/rest/users")).permitAll()
                         .requestMatchers(mvc.pattern("/rest/auth/**")).permitAll()
+                        .requestMatchers(mvc.pattern("/login")).permitAll()
+                        .requestMatchers(mvc.pattern("/login/**")).permitAll()
                         .anyRequest().authenticated());
         http.headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
